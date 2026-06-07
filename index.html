@@ -329,7 +329,7 @@ const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQNayn9Ue22GF
 
 const CACHE_KEY = "borang_cache";
 const CACHE_TIME_KEY = "borang_cache_time";
-const CACHE_DURATION = 30 * 60 * 1000;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minit
 
 // Data statik (digunakan jika SHEET_URL kosong)
 const STATIC_DATA = [
@@ -485,6 +485,10 @@ async function fetchSheets(silent = false) {
     if (!res.ok) throw new Error();
     const text = await res.text();
     const raw = parseCSV(text);
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(raw));
+      localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+    } catch(e) {}
     allData = raw.map(normalise);
     buildFilter(allData); render();
     document.getElementById('cache-badge').textContent = '✓ Data terkini';
@@ -499,15 +503,32 @@ async function fetchSheets(silent = false) {
   }
 }
 
+function loadFromSheets() {
+  // Tunjuk cache dulu (pantas)
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    const cachedTime = parseInt(localStorage.getItem(CACHE_TIME_KEY) || '0');
+    if (cached) {
+      allData = JSON.parse(cached).map(normalise);
+      buildFilter(allData); render();
+      const m = Math.floor((Date.now() - cachedTime) / 60000);
+      document.getElementById('cache-badge').textContent = m < 1 ? '✓ Baru' : `✓ ${m} min lepas`;
+      document.getElementById('cache-badge').className = 'cache-badge fresh';
+    }
+  } catch(e) {}
+  // Fetch terkini di latar belakang
+  fetchSheets(true);
+}
+
 function forceRefresh() {
   try { localStorage.removeItem(CACHE_KEY); localStorage.removeItem(CACHE_TIME_KEY); } catch(e) {}
   document.getElementById('cache-badge').textContent = 'Memuatkan...';
-  loadFromSheets(true);
+  fetchSheets(false);
 }
 
-// Muat data terus dari Sheets setiap kali (tanpa cache)
+// Muat data — tunjuk cache dulu, fetch terkini di latar belakang
 if (SHEET_URL) {
-  fetchSheets(false);
+  loadFromSheets();
 } else {
   allData = STATIC_DATA;
   buildFilter(allData); render();
