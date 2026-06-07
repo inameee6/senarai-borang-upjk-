@@ -485,15 +485,12 @@ async function fetchSheets(silent = false) {
     if (!res.ok) throw new Error();
     const text = await res.text();
     const raw = parseCSV(text);
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify(raw));
-      localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
-    } catch(e) {}
     allData = raw.map(normalise);
-    buildFilter(allData); render(); setCacheBadge(false);
+    buildFilter(allData); render();
+    document.getElementById('cache-badge').textContent = '✓ Data terkini';
+    document.getElementById('cache-badge').className = 'cache-badge fresh';
   } catch(e) {
     if (!silent) {
-      // Fallback ke data statik jika Sheets gagal
       allData = STATIC_DATA;
       buildFilter(allData); render();
       document.getElementById('cache-badge').textContent = 'Data statik';
@@ -508,9 +505,9 @@ function forceRefresh() {
   loadFromSheets(true);
 }
 
-// Muat data
+// Muat data terus dari Sheets setiap kali (tanpa cache)
 if (SHEET_URL) {
-  loadFromSheets();
+  fetchSheets(false);
 } else {
   allData = STATIC_DATA;
   buildFilter(allData); render();
