@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penasihat Akademik – Portal UPJK PTSB</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f4; color: #222; }
+    .topbar { background: #1a1a1a; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar-title { color: #fff; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+    .topbar-title span { color: #c0392b; font-style: italic; }
+    .topbar-sub { color: #aaa; font-size: 13px; margin-top: 2px; }
+    .logout-btn { background: #c0392b; color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+    .logout-btn:hover { background: #a93226; }
+    .breadcrumb { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 10px 32px; font-size: 13px; color: #888; display: flex; align-items: center; gap: 6px; }
+    .breadcrumb a { color: #c0392b; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: #ccc; }
+    .breadcrumb .active { color: #333; font-weight: 500; }
+    .content { max-width: 900px; margin: 32px auto; padding: 0 24px; }
+    .role-header { background: #1a1a1a; border-radius: 10px; padding: 20px 24px; display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .role-icon { width: 52px; height: 52px; background: #c0392b; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .role-icon svg { width: 28px; height: 28px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .role-header-text h1 { color: #fff; font-size: 20px; font-weight: 600; }
+    .role-header-text p { color: #aaa; font-size: 13px; margin-top: 4px; }
+    .role-badge { margin-left: auto; background: #c0392b; color: #fff; font-size: 12px; padding: 5px 14px; border-radius: 20px; white-space: nowrap; }
+    .table-wrap { background: #fff; border-radius: 10px; border: 1px solid #e5e5e5; overflow: hidden; }
+    .table-header { padding: 16px 24px; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; }
+    .table-header h2 { font-size: 14px; font-weight: 600; color: #333; }
+    .table-header span { font-size: 12px; color: #888; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #f9f9f9; }
+    thead th { padding: 12px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e5e5e5; }
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fdf8f8; }
+    tbody td { padding: 14px 20px; font-size: 14px; color: #333; vertical-align: middle; }
+    .td-no { color: #aaa; font-size: 13px; width: 50px; }
+    .td-name { font-weight: 500; }
+    .td-date { color: #888; font-size: 13px; white-space: nowrap; }
+    .td-action { text-align: right; white-space: nowrap; }
+    .btn-buka { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #c0392b; color: #c0392b; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.15s; }
+    .btn-buka:hover { background: #c0392b; color: #fff; }
+    .btn-buka svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .back-row { margin-bottom: 20px; }
+    .btn-back { display: inline-flex; align-items: center; gap: 6px; color: #888; font-size: 13px; text-decoration: none; border: 1px solid #ddd; padding: 7px 14px; border-radius: 6px; background: #fff; cursor: pointer; transition: all 0.15s; }
+    .btn-back:hover { color: #c0392b; border-color: #c0392b; }
+    .btn-back svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .footer { text-align: center; color: #bbb; font-size: 12px; padding: 32px 0 24px; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <div class="topbar-title">Portal UPJK <span>PTSB</span></div>
+    <div class="topbar-sub">Pilih kategori untuk akses dokumen, borang dan maklumat unit</div>
+  </div>
+  <a href="index.html" class="logout-btn">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Log Keluar
+  </a>
+</div>
+
+<div class="breadcrumb">
+  <a href="index.html">Laman Utama</a>
+  <span class="sep">›</span>
+  <a href="borang.html">Borang</a>
+  <span class="sep">›</span>
+  <span class="active">Penasihat Akademik</span>
+</div>
+
+<div class="content">
+  <div class="back-row">
+    <a href="borang.html" class="btn-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Kembali ke Borang
+    </a>
+  </div>
+
+  <div class="role-header">
+    <div class="role-icon">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div class="role-header-text">
+      <h1>Penasihat Akademik</h1>
+      <p>Borang bimbingan pelajar, cuti dan pengesahan dokumen akademik</p>
+    </div>
+    <div class="role-badge">2 Borang</div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-header">
+      <h2>Senarai Borang</h2>
+      <span>Tarikh kuatkuasa: 8 Jan 2026</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Nama Fail</th>
+          <th>Tarikh Kuatkuasa</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-no">1</td>
+          <td class="td-name">Borang Pengesahan Sijil Cuti Sakit Pelajar</td>
+          <td class="td-date">8 Jan 2026</td>
+          <td class="td-action"><a href="https://docs.google.com/document/d/1kBRbwzmnjmGpfstB-PbHRFkYmZKWcLzJ/edit?usp=sharing&ouid=113899641868127541415&rtpof=true&sd=true" target="_blank" class="btn-buka"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Buka</a></td>
+        </tr>
+        <tr>
+          <td class="td-no">2</td>
+          <td class="td-name">Borang Permohonan Cuti Pelepasan Kuliah / Amali / Kokurikulum Pelajar</td>
+          <td class="td-date">8 Jan 2026</td>
+          <td class="td-action"><a href="https://docs.google.com/document/d/1kH4IPpp02-BgKCotuyeYOTnAdXOO8JNj/edit?usp=sharing&ouid=113899641868127541415&rtpof=true&sd=true" target="_blank" class="btn-buka"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Buka</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">Portal UPJK PTSB &copy; 2026</div>
+</div>
+
+</body>
+</html>
